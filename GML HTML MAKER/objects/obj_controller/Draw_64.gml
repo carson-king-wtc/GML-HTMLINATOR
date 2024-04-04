@@ -117,6 +117,14 @@ for(var i=0;i<array_length(lines);i++)
 				var _xScale=_width/sprite_get_width(_spr)
 				var _yScale=_height/sprite_get_height(_spr)
 				draw_sprite_ext(_spr,0,_x,_y,_xScale,_yScale,0,c_white,1)
+				if(string_count(".webp",_imageID)>0)
+				{
+					draw_text(_x,_y,"the engine can not display webp files, sorry! (it will appear on the site tho)")
+				}
+				if(string_count(".gif",_imageID)>0)
+				{
+					draw_text(_x,_y,"gifs are not animated in engine, they will be on your site!")
+				}
 			}
 		}
 		
