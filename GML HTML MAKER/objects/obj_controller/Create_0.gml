@@ -16,7 +16,6 @@ endLines=[
 
 lines=[
 	"<h1>This is a Heading</h1>",
-	"<p>srgfohsuiogfhsfvsigfhsgvhsivghisgvisguishvgiushgvuishvgiushvgiushgvuihsviuhsiuvhsvuhsuvhisuvhuisvhuivhuishviusvhiusrvhusvhiuhvuivshiusrvhushvuishbrvuisbuisvbiusfiusdfuisdfudsuifsiufsiuefvbiuveiusebvuisvebuivbuisdvbiusdbviusafuidsfuibsdfiubsdfiubsdfiusdfiusdfiusdfiusfduihiusdfhuiefiusdfisdfudsifbiusdfbuisdfuidfsudsfhiusdhfiusdfhiudsfhiudsfhiufhefbebiu</p>",
 ]
 
 function format_string_line_breaks(str){
@@ -34,7 +33,18 @@ enum lineTypes{
 	list
 }
 
+lineFormatting=ds_map_create()
+
+ds_map_add(lineFormatting,lineTypes.paragraph,{startOfLine:"<p>",endOfLine:"/<p>"})
+
+ds_map_add(lineFormatting,lineTypes.headerBig,{startOfLine:"<h1>",endOfLine:"/<h1>"})
+
+ds_map_add(lineFormatting,lineTypes.headerMiddle,{startOfLine:"<h2>",endOfLine:"/<h2>"})
+
+ds_map_add(lineFormatting,lineTypes.headerSmall,{startOfLine:"<h3>",endOfLine:"/<h3>"})
+
 function add_line(type){
+	var _str=get_string("type in the line (use \n for a new line)","")
 	
 }
 
