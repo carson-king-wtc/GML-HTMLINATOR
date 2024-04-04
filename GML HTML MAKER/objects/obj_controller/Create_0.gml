@@ -113,7 +113,7 @@ function save_html(){
 	save_file(_str,game_save_id+"html.html")
 }
 
-scrollOffset=0
+scrollOffset=128
 
 scrollSpeed=0
 

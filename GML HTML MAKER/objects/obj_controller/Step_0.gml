@@ -5,11 +5,11 @@ scrollSpeed-=scrollSpeed/10
 
 if(mouse_wheel_down())
 {
-	scrollSpeed=-maxScrollSpeed
+	scrollSpeed+=-maxScrollSpeed
 }
 if(mouse_wheel_up())
 {
-	scrollSpeed=maxScrollSpeed
+	scrollSpeed+=maxScrollSpeed
 }
 
 scrollOffset+=scrollSpeed

@@ -130,3 +130,10 @@ for(var i=0;i<array_length(lines);i++)
 		_y-=string_height(_line)*2
 	}
 }
+
+
+
+for(var i=0;i<ds_map_size(lineFormatting);i++)
+{
+	
+}
