@@ -25,7 +25,13 @@ lines=[
 	
 	"<a href=\"https://www.w3schools.com\">This is a link</a>",
 	
+	"<p></p>",
+	
 	"<button>Button</button>",
+	
+	"<p></p>",
+	
+	"<img src=\"image.png\" width=\"104\" height=\"142\">"
 ]
 
 function format_string_line_breaks(str){
@@ -76,7 +82,7 @@ function save_html(){
 	{
 		_str=_str+endLines[i]+"\n"
 	}
-	save_file(_str,game_save_id+"/html.html")
+	save_file(_str,game_save_id+"html.html")
 }
 
 scrollOffset=0
