@@ -7,5 +7,5 @@ function save_file(data,fname){
 	buffer_save(_buffer,fname)
 	buffer_delete(_buffer)
 	
-	show_debug_message("game saved! "+_string)
+	show_debug_message("game saved! "+fname)
 }

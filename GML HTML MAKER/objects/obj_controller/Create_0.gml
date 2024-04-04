@@ -33,5 +33,5 @@ function save_html(){
 	{
 		_str=_str+endLines[i]+"\n"
 	}
-	save_file(_str,"")
+	save_file(_str,game_save_id+"/html.html")
 }
