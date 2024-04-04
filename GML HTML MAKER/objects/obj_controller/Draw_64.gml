@@ -117,6 +117,8 @@ for(var i=0;i<array_length(lines);i++)
 			draw_sprite_ext(_spr,0,_x,_y,_xScale,_yScale,0,c_white,1)
 		}
 		
+		_y+=_height
+		
 		_line=""
 	}
 	

@@ -21,8 +21,6 @@ lines=[
 	
 	"<h3>This is a small Heading</h3>",
 	
-	"<p>This is a Har Har paragraph</p>",
-	
 	"<a href=\"https://www.w3schools.com\">This is a link</a>",
 	
 	"<p></p>",
@@ -31,11 +29,13 @@ lines=[
 	
 	"<p></p>",
 	
-	"<img src=\"image.png\" width=\"104\" height=\"142\">"
+	"<img src=\"image.png\" width=\"999\" height=\"520\">",
+	
+	"<p></p>",
 ]
 
 function format_string_line_breaks(str){
-	return string_replace_all(str,"\\n","\n")
+	return string_replace_all(str,"\\n","<br>")
 }
 
 enum lineTypes{
@@ -51,25 +51,49 @@ enum lineTypes{
 
 lineFormatting=ds_map_create()
 
-ds_map_add(lineFormatting,lineTypes.paragraph,{startOfLine:"<p",endOfLine:"/<p>"})
+ds_map_add(lineFormatting,lineTypes.paragraph,{startOfLine:"<p",endOfLine:"</p>",name:"Paragraph"})
 
-ds_map_add(lineFormatting,lineTypes.headerBig,{startOfLine:"<h1",endOfLine:"/<h1>"})
+ds_map_add(lineFormatting,lineTypes.headerBig,{startOfLine:"<h1",endOfLine:"</h1>",name:"Big Header"})
 
-ds_map_add(lineFormatting,lineTypes.headerMiddle,{startOfLine:"<h2",endOfLine:"/<h2>"})
+ds_map_add(lineFormatting,lineTypes.headerMiddle,{startOfLine:"<h2",endOfLine:"</h2>",name:"Medium Header"})
 
-ds_map_add(lineFormatting,lineTypes.headerSmall,{startOfLine:"<h3",endOfLine:"/<h3>"})
+ds_map_add(lineFormatting,lineTypes.headerSmall,{startOfLine:"<h3",endOfLine:"</h3>",name:"Small Header"})
 
-ds_map_add(lineFormatting,lineTypes.link,{startOfLine:"<a",endOfLine:"/<a>"})
+ds_map_add(lineFormatting,lineTypes.link,{startOfLine:"<a",endOfLine:"</a>",name:"Link"})
 
-ds_map_add(lineFormatting,lineTypes.button,{startOfLine:"<button",endOfLine:"</button>"})
+ds_map_add(lineFormatting,lineTypes.button,{startOfLine:"<button",endOfLine:"</button>",name:"Button"})
 
-ds_map_add(lineFormatting,lineTypes.image,{startOfLine:"<img",endOfLine:">"})
+ds_map_add(lineFormatting,lineTypes.image,{startOfLine:"<img",endOfLine:">",name:"paragraph"})
 
 images=ds_map_create()
 
+function new_line(){
+	return "<br>"
+}
+
 function add_line(type){
-	var _str=get_string("type in the line (use \n for a new line)","")
+	var _str=get_string("type in the line (use \\n for a new line)","")
+	if(_str=="")
+	{
+		return 0
+	}
 	
+	var _previousStr=_str
+	var hasLineBreaks=false
+	_str = format_string_line_breaks(_str)
+	
+	if(_str!=_previousStr)
+	{
+		hasLineBreaks=true
+	}
+	
+	if(type==lineTypes.paragraph)
+	{
+		var _format=ds_map_find_value(lineFormatting,lineTypes.paragraph)
+		_str=_format.startOfLine+">"+_str+_format.endOfLine
+	}
+	array_push(lines,_str)
+	return 1
 }
 
 function save_html(){
