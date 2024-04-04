@@ -10,7 +10,7 @@ for(var i=0;i<array_length(lines);i++)
 	var _formatStartOpen=string_pos("<",_line)
 	var _formatStartClose=string_pos(">",_line)
 	
-	var _format=string_copy(_line,_formatStartOpen,abs(_formatStartOpen-_formatStartClose)+1)
+	var _format=string_copy(_line,_formatStartOpen,abs(_formatStartOpen-_formatStartClose))
 	
 	_line=string_delete(_line,_formatStartOpen,abs(_formatStartOpen-_formatStartClose)+1)
 	
@@ -21,13 +21,14 @@ for(var i=0;i<array_length(lines);i++)
 	var _formatID=-4
 	for(var o=0;o<ds_map_size(lineFormatting);o++)
 	{
-		if(_format==ds_map_find_value(lineFormatting,o).startOfLine)
+		if(string_count(ds_map_find_value(lineFormatting,o).startOfLine,_format)>0)
 		{
 			_formatID=o
 		}
 	}
 	
 	draw_set_font(fn_default)
+	draw_set_color(c_white)
 	
 	var _size=1
 	
@@ -45,6 +46,21 @@ for(var i=0;i<array_length(lines);i++)
 	{
 		_size=1.5
 		draw_set_font(fn_default_bold)
+	}
+	if(_formatID==lineTypes.link)
+	{
+		draw_set_color(c_blue)
+		var _linkPos=string_pos("href=",_format)
+		var _link=string_copy(_format,_linkPos+5,_formatStartClose)
+		_link=string_replace_all(_link,"\"","")
+		if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),_x,_y,_x+string_width(_line),_y+string_height(_line)))
+		{
+			draw_set_color(c_aqua)
+			if(mouse_check_button_pressed(mb_left))
+			{
+				url_open(_link)
+			}
+		}
 	}
 	
 	draw_text_transformed(_x,_y,_line,_size,_size,0)
