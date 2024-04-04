@@ -76,7 +76,54 @@ for(var i=0;i<array_length(lines);i++)
 			}
 		}
 	}
+	if(string_count("<img",_line)>0)
+	{
+		_formatID=lineTypes.image
+	}
+	if(_formatID==lineTypes.image)
+	{
+		_line=lines[i]
+		
+		var _linkPos=string_pos("src=",_line)
+		var _endPos=string_pos_ext("\"",_line,_linkPos)
+		var _link=string_copy(_line,_linkPos+4,_endPos)
+		_link=string_replace_all(_link,"\"","")
+		
+		var _imageID=_link
+		
+		_linkPos=string_pos("width=",_line)
+		_endPos=string_pos_ext("h",_line,_linkPos)
+		_link=string_copy(_line,_linkPos+6,_endPos)
+		_link=string_replace_all(_link,"\"","")
+		
+		var _width=real(_link)
+		
+		_linkPos=string_pos("height=",_line)
+		_endPos=string_pos_ext(">",_line,_linkPos)
+		_link=string_copy(_line,_linkPos+7,_endPos-1)
+		_link=string_replace_all(_link,"\"","")
+		
+		var _height=real(_link)
+		
+		if(ds_map_find_value(images,_imageID)==undefined)
+		{
+			ds_map_add(images,_imageID,sprite_add(_imageID,1,false,false,0,0))
+		}
+		else
+		{
+			var _spr=ds_map_find_value(images,_imageID)
+			var _xScale=_width/sprite_get_width(_spr)
+			var _yScale=_height/sprite_get_height(_spr)
+			draw_sprite_ext(_spr,0,_x,_y,_xScale,_yScale,0,c_white,1)
+		}
+		
+		_line=""
+	}
 	
 	draw_text_transformed(_x,_y,_line,_size,_size,0)
 	_y+=64
+	if(lines[i]=="<p></p>")
+	{
+		_y-=64
+	}
 }

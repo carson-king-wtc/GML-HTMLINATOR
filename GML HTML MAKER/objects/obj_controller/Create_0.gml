@@ -63,6 +63,10 @@ ds_map_add(lineFormatting,lineTypes.link,{startOfLine:"<a",endOfLine:"/<a>"})
 
 ds_map_add(lineFormatting,lineTypes.button,{startOfLine:"<button",endOfLine:"</button>"})
 
+ds_map_add(lineFormatting,lineTypes.image,{startOfLine:"<img",endOfLine:">"})
+
+images=ds_map_create()
+
 function add_line(type){
 	var _str=get_string("type in the line (use \n for a new line)","")
 	
