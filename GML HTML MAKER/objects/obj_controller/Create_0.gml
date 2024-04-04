@@ -16,8 +16,27 @@ endLines=[
 
 lines=[
 	"<h1>This is a Heading</h1>",
-	"<p>This is a paragraph.</p>",
+	"<p>srgfohsuiogfhsfvsigfhsgvhsivghisgvisguishvgiushgvuishvgiushvgiushgvuihsviuhsiuvhsvuhsuvhisuvhuisvhuivhuishviusvhiusrvhusvhiuhvuivshiusrvhushvuishbrvuisbuisvbiusfiusdfuisdfudsuifsiufsiuefvbiuveiusebvuisvebuivbuisdvbiusdbviusafuidsfuibsdfiubsdfiubsdfiusdfiusdfiusdfiusfduihiusdfhuiefiusdfisdfudsifbiusdfbuisdfuidfsudsfhiusdhfiusdfhiudsfhiudsfhiufhefbebiu</p>",
 ]
+
+function format_string_line_breaks(str){
+	return string_replace_all(str,"\\n","\n")
+}
+
+enum lineTypes{
+	paragraph,
+	headerBig,
+	headerMiddle,
+	headerSmall,
+	link,
+	image,
+	button,
+	list
+}
+
+function add_line(type){
+	
+}
 
 function save_html(){
 	var _str=""
@@ -35,3 +54,9 @@ function save_html(){
 	}
 	save_file(_str,game_save_id+"/html.html")
 }
+
+scrollOffset=0
+
+scrollSpeed=0
+
+maxScrollSpeed=5
