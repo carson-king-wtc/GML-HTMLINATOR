@@ -28,7 +28,7 @@ for(var i=0;i<array_length(lines);i++)
 	}
 	
 	draw_set_font(fn_default)
-	draw_set_color(c_white)
+	draw_set_color(c_black)
 	
 	var _size=1
 	
@@ -59,6 +59,20 @@ for(var i=0;i<array_length(lines);i++)
 			if(mouse_check_button_pressed(mb_left))
 			{
 				url_open(_link)
+			}
+		}
+	}
+	if(_formatID==lineTypes.button)
+	{
+		draw_rectangle(_x,_y,_x+string_width(_line),_y+string_height(_line),true)
+		if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),_x,_y,_x+string_width(_line),_y+string_height(_line)))
+		{
+			draw_set_color(c_gray)
+			draw_rectangle(_x,_y,_x+string_width(_line),_y+string_height(_line),false)
+			draw_set_color(c_black)
+			if(mouse_check_button_pressed(mb_left))
+			{
+				
 			}
 		}
 	}

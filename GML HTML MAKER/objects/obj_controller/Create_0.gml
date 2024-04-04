@@ -4,7 +4,7 @@ startLines=[
 	"<!DOCTYPE html>",
 	"<html>",
 	"<head>",
-	"<title>Page Title</title>",
+	"<title>fr fr</title>",
 	"</head>",
 	"<body>",
 ]
@@ -24,6 +24,8 @@ lines=[
 	"<p>This is a Har Har paragraph</p>",
 	
 	"<a href=\"https://www.w3schools.com\">This is a link</a>",
+	
+	"<button>Button</button>",
 ]
 
 function format_string_line_breaks(str){
@@ -36,8 +38,8 @@ enum lineTypes{
 	headerMiddle,
 	headerSmall,
 	link,
-	image,
 	button,
+	image,
 	list
 }
 
@@ -52,6 +54,8 @@ ds_map_add(lineFormatting,lineTypes.headerMiddle,{startOfLine:"<h2",endOfLine:"/
 ds_map_add(lineFormatting,lineTypes.headerSmall,{startOfLine:"<h3",endOfLine:"/<h3>"})
 
 ds_map_add(lineFormatting,lineTypes.link,{startOfLine:"<a",endOfLine:"/<a>"})
+
+ds_map_add(lineFormatting,lineTypes.button,{startOfLine:"<button",endOfLine:"</button>"})
 
 function add_line(type){
 	var _str=get_string("type in the line (use \n for a new line)","")
