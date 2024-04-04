@@ -15,7 +15,7 @@ endLines=[
 ]
 
 lines=[
-	"<h1>This is a Heading</h1>",
+	"<h1>This is a <br>Heading<br>Heading<br>Heading<br>Heading</h1>",
 	
 	"<h2>This is a medium Heading</h2>",
 	

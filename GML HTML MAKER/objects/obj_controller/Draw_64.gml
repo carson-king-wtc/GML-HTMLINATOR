@@ -122,10 +122,11 @@ for(var i=0;i<array_length(lines);i++)
 		_line=""
 	}
 	
+	_line=string_replace_all(_line,"<br>","\n")
 	draw_text_transformed(_x,_y,_line,_size,_size,0)
-	_y+=64
+	_y+=string_height(_line)*2
 	if(lines[i]=="<p></p>")
 	{
-		_y-=64
+		_y-=string_height(_line)*2
 	}
 }
