@@ -16,6 +16,12 @@ endLines=[
 
 lines=[
 	"<h1>This is a Heading</h1>",
+	
+	"<h2>This is a medium Heading</h2>",
+	
+	"<h3>This is a small Heading</h3>",
+	
+	"<p>This is a Har Har paragraph</p>",
 ]
 
 function format_string_line_breaks(str){
@@ -69,4 +75,4 @@ scrollOffset=0
 
 scrollSpeed=0
 
-maxScrollSpeed=5
+maxScrollSpeed=15

@@ -17,6 +17,7 @@
     {"name":"Timelines","order":8,"path":"folders/Timelines.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"fn_default_bold","order":1,"path":"fonts/fn_default_bold/fn_default_bold.yy",},
     {"name":"load_file","order":1,"path":"scripts/load_file/load_file.yy",},
   ],
 }
