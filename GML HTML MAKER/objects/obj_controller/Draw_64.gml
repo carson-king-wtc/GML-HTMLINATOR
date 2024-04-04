@@ -84,9 +84,9 @@ for(var i=0;i<array_length(lines);i++)
 	{
 		_line=lines[i]
 		
-		var _linkPos=string_pos("src=",_line)
-		var _endPos=string_pos_ext("\"",_line,_linkPos)
-		var _link=string_copy(_line,_linkPos+4,_endPos)
+		var _linkPos=string_pos("\"",_line)
+		var _endPos=string_pos_ext("\"",_line,_linkPos+1)
+		var _link=string_copy(_line,_linkPos,abs(_linkPos-_endPos))
 		_link=string_replace_all(_link,"\"","")
 		
 		var _imageID=_link
@@ -112,9 +112,12 @@ for(var i=0;i<array_length(lines);i++)
 		else
 		{
 			var _spr=ds_map_find_value(images,_imageID)
-			var _xScale=_width/sprite_get_width(_spr)
-			var _yScale=_height/sprite_get_height(_spr)
-			draw_sprite_ext(_spr,0,_x,_y,_xScale,_yScale,0,c_white,1)
+			if(!is_undefined(_spr)&&sprite_exists(_spr))
+			{
+				var _xScale=_width/sprite_get_width(_spr)
+				var _yScale=_height/sprite_get_height(_spr)
+				draw_sprite_ext(_spr,0,_x,_y,_xScale,_yScale,0,c_white,1)
+			}
 		}
 		
 		_y+=_height
@@ -131,9 +134,25 @@ for(var i=0;i<array_length(lines);i++)
 	}
 }
 
-
+_x=128
+_y=16
 
 for(var i=0;i<ds_map_size(lineFormatting);i++)
 {
-	
+	var val=ds_map_find_value(lineFormatting,i)
+	var _xScale=1
+	if(string_width(val.name)*1.5>128)
+	{
+		_xScale=string_width(val.name)*1.5/128
+	}
+	draw_sprite_ext(spr_text_button,0,_x,_y,_xScale,1,0,c_white,1)
+	draw_text(_x,_y,val.name)
+	if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),_x,_y,_x+128,_y+64))
+	{
+		if(mouse_check_button_pressed(mb_left))
+		{
+			add_line(i)
+		}
+	}
+	_x+=128*_xScale
 }

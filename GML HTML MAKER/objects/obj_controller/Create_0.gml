@@ -28,10 +28,6 @@ lines=[
 	"<button>Button</button>",
 	
 	"<p></p>",
-	
-	"<img src=\"image.png\" width=\"999\" height=\"520\">",
-	
-	"<p></p>",
 ]
 
 function format_string_line_breaks(str){
@@ -63,7 +59,7 @@ ds_map_add(lineFormatting,lineTypes.link,{startOfLine:"<a",endOfLine:"</a>",name
 
 ds_map_add(lineFormatting,lineTypes.button,{startOfLine:"<button",endOfLine:"</button>",name:"Button"})
 
-ds_map_add(lineFormatting,lineTypes.image,{startOfLine:"<img",endOfLine:">",name:"paragraph"})
+ds_map_add(lineFormatting,lineTypes.image,{startOfLine:"<img",endOfLine:">",name:"Image"})
 
 images=ds_map_create()
 
@@ -72,7 +68,11 @@ function new_line(){
 }
 
 function add_line(type){
-	var _str=get_string("type in the line (use \\n for a new line)","")
+	var _str="w"
+	if(type!=lineTypes.image)
+	{
+		_str=get_string("type in the line (use \\n for a new line)","")
+	}
 	if(_str=="")
 	{
 		return 0
@@ -87,9 +87,21 @@ function add_line(type){
 		hasLineBreaks=true
 	}
 	
-	if(type==lineTypes.paragraph)
+	if(type==lineTypes.link)
 	{
-		var _format=ds_map_find_value(lineFormatting,lineTypes.paragraph)
+		var _link=get_string("link","https://youtube.com")
+		var _format=ds_map_find_value(lineFormatting,type)
+		_str=_format.startOfLine+" href=\""+_link+"\">"+_str+_format.endOfLine
+	}
+	else if(type==lineTypes.image)
+	{
+		var _image=get_open_filename("image files","")
+		file_copy(_image,game_save_id+filename_name(_image))
+		var _format=ds_map_find_value(lineFormatting,type)
+		_str=_format.startOfLine+" src=\""+filename_name(_image)+"\" width=\"999\" height=\"520\">"
+	}
+	else{
+		var _format=ds_map_find_value(lineFormatting,type)
 		_str=_format.startOfLine+">"+_str+_format.endOfLine
 	}
 	array_push(lines,_str)
