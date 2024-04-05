@@ -78,7 +78,6 @@ function add_line(type){
 	
 	var _previousStr=_str
 	var hasLineBreaks=false
-	_str = format_string_line_breaks(_str)
 	
 	if(_str!=_previousStr)
 	{
@@ -110,6 +109,18 @@ function add_line(type){
 	return 1
 }
 
+function find_line_breaks(_str){
+	var _array=[]
+	for(var i=1;i<string_length(_str);i++)
+	{
+		if(string_char_at(_str,i)=="\n")
+		{
+			array_push(_array,i)
+		}
+	}
+	return _array
+}
+
 function save_html(){
 	var _str=""
 	for(var i=0;i<array_length(startLines);i++)
@@ -118,7 +129,8 @@ function save_html(){
 	}
 	for(var i=0;i<array_length(lines);i++)
 	{
-		_str=_str+lines[i]+"\n"
+		var _tempStr = format_string_line_breaks(lines[i])
+		_str=_str+_tempStr+"\n"
 	}
 	for(var i=0;i<array_length(endLines);i++)
 	{

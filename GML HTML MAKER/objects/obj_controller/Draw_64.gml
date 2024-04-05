@@ -142,6 +142,7 @@ for(var i=0;i<array_length(lines);i++)
 	}
 	
 	_line=string_replace_all(_line,"<br>","\n")
+	_line=string_replace_all(_line,"\\n","\n")
 	
 	_isInHitbox=point_in_rectangle(
 	device_mouse_x_to_gui(0),
@@ -173,10 +174,13 @@ for(var i=0;i<array_length(lines);i++)
 			{
 				backTime=0
 			}
-			if(keyboard_check_pressed(vk_backspace)||backTime>30)
+			if(lineIndex!=1)
 			{
-				lines[i]=string_delete(lines[i],lineIndex+_charactersAtStart,1)
-				lineIndex--
+				if(keyboard_check_pressed(vk_backspace)||backTime>30)
+				{
+					lines[i]=string_delete(lines[i],lineIndex+_charactersAtStart,1)
+					lineIndex--
+				}
 			}
 			backTime++
 			_pressedNonTextKey=true
@@ -186,9 +190,9 @@ for(var i=0;i<array_length(lines);i++)
 		{
 			arrowHoldTime=0
 			lineIndex--
-			if(lineIndex<0)
+			if(lineIndex<1)
 			{
-				lineIndex=0
+				lineIndex=1
 			}
 			_pressedNonTextKey=true
 		}
@@ -202,12 +206,20 @@ for(var i=0;i<array_length(lines);i++)
 			}
 			_pressedNonTextKey=true
 		}
+		if(keyboard_check_pressed(vk_home))
+		{
+			lineIndex=0
+		}
+		if(keyboard_check_pressed(vk_end))
+		{
+			lineIndex=string_length(_line)+1
+		}
 		if(keyboard_check(vk_left)&&arrowHoldTime>30)
 		{
 			lineIndex--
-			if(lineIndex<0)
+			if(lineIndex<1)
 			{
-				lineIndex=0
+				lineIndex=1
 			}
 			_pressedNonTextKey=true
 		}
@@ -223,6 +235,15 @@ for(var i=0;i<array_length(lines);i++)
 		arrowHoldTime++
 		if(keyboard_check_pressed(vk_anykey)&&!_pressedNonTextKey)
 		{
+			var _lineBreaks=find_line_breaks(lines[i])
+			show_debug_message(_lineBreaks)
+			for(var o=0;o<array_length(_lineBreaks);o++)
+			{
+				if(lineIndex>=_lineBreaks[o])
+				{
+					_charactersAtStart++
+				}
+			}
 			lines[i]=string_insert(keyboard_lastchar,lines[i],lineIndex+_charactersAtStart +1)
 			lineIndex++
 			keyboard_lastchar=""
@@ -233,7 +254,7 @@ for(var i=0;i<array_length(lines);i++)
 	
 	
 	
-	if(lines[i]=="<p></p>")
+	if(lines[i]=="")
 	{
 		//_y-=string_height(_line)*2
 	}
@@ -245,6 +266,11 @@ for(var i=0;i<array_length(lines);i++)
 			_height=64
 		}
 		_x+=string_width(_line)*_size +64
+		if(_line=="")
+		{
+			_x=128
+			_height=64
+		}
 	
 		draw_rectangle(_x,_y,_x+128,_y+_height,true)
 		if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
