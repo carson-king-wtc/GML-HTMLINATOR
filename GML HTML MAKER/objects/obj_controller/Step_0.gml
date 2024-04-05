@@ -13,3 +13,9 @@ if(mouse_wheel_up())
 }
 
 scrollOffset+=scrollSpeed
+
+lineTimer++
+if(lineTimer>=30)
+{
+	lineTimer=0
+}

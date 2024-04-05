@@ -12,7 +12,9 @@ for(var i=0;i<array_length(lines);i++)
 	var _formatStartOpen=string_pos("<",_line)
 	var _formatStartClose=string_pos(">",_line)
 	
-	var _format=string_copy(_line,_formatStartOpen,abs(_formatStartOpen-_formatStartClose))
+	var _charactersAtStart=abs(_formatStartOpen-_formatStartClose)
+	
+	var _format=string_copy(_line,_formatStartOpen,_charactersAtStart)
 	
 	_line=string_delete(_line,_formatStartOpen,abs(_formatStartOpen-_formatStartClose)+1)
 	
@@ -140,11 +142,100 @@ for(var i=0;i<array_length(lines);i++)
 	}
 	
 	_line=string_replace_all(_line,"<br>","\n")
-	draw_text_transformed(_x,_y,_line,_size,_size,0)
+	
+	_isInHitbox=point_in_rectangle(
+	device_mouse_x_to_gui(0),
+	device_mouse_y_to_gui(0),
+	_x,
+	_y,
+	_x+string_width(_line)*_size,
+	_y+string_height(_line)*_size)
+	if(_isInHitbox)
+	{
+		draw_set_color(c_red)
+		if(mouse_check_button_pressed(mb_right))
+		{
+			lineEditing=i
+			lineIndex=string_length(_line)+1
+		}
+	}
+	var _editLine=_line
+	var _pressedNonTextKey=false
+	if(lineEditing==i)
+	{
+		if(lineTimer>15)
+		{
+			_editLine=string_insert("^",_line,lineIndex)
+		}
+		if(keyboard_check(vk_backspace))
+		{
+			if(keyboard_check_pressed(vk_backspace))
+			{
+				backTime=0
+			}
+			if(keyboard_check_pressed(vk_backspace)||backTime>30)
+			{
+				lines[i]=string_delete(lines[i],lineIndex+_charactersAtStart,1)
+				lineIndex--
+			}
+			backTime++
+			_pressedNonTextKey=true
+		}
+		
+		if(keyboard_check_pressed(vk_left))
+		{
+			arrowHoldTime=0
+			lineIndex--
+			if(lineIndex<0)
+			{
+				lineIndex=0
+			}
+			_pressedNonTextKey=true
+		}
+		if(keyboard_check_pressed(vk_right))
+		{
+			arrowHoldTime=0
+			lineIndex++
+			if(lineIndex>string_length(_line)+1)
+			{
+				lineIndex=string_length(_line)+1
+			}
+			_pressedNonTextKey=true
+		}
+		if(keyboard_check(vk_left)&&arrowHoldTime>30)
+		{
+			lineIndex--
+			if(lineIndex<0)
+			{
+				lineIndex=0
+			}
+			_pressedNonTextKey=true
+		}
+		if(keyboard_check(vk_right)&&arrowHoldTime>30)
+		{
+			lineIndex++
+			if(lineIndex>string_length(_line)+1)
+			{
+				lineIndex=string_length(_line)+1
+			}
+			_pressedNonTextKey=true
+		}
+		arrowHoldTime++
+		if(keyboard_check_pressed(vk_anykey)&&!_pressedNonTextKey)
+		{
+			lines[i]=string_insert(keyboard_lastchar,lines[i],lineIndex+_charactersAtStart +1)
+			lineIndex++
+			keyboard_lastchar=""
+		}
+	}
+	
+	draw_text_transformed(_x,_y,_editLine,_size,_size,0)
+	
+	
 	
 	if(lines[i]=="<p></p>")
 	{
-		_y-=string_height(_line)*2
+		//_y-=string_height(_line)*2
 	}
 	else
 	{

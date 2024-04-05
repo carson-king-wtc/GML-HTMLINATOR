@@ -18,6 +18,16 @@ lines=[
 	"<p>This is a test line you're free to delete it :3</p>",
 ]
 
+lineEditing=-4
+
+lineIndex=0
+
+lineTimer=0
+
+arrowHoldTime=0
+
+backTime=0
+
 function format_string_line_breaks(str){
 	return string_replace_all(str,"\\n","<br>")
 }
@@ -59,7 +69,7 @@ function add_line(type){
 	var _str="w"
 	if(type!=lineTypes.image)
 	{
-		_str=get_string("type in the line (use \\n for a new line)","")
+		_str="right click to type your text!\\nuse left and right arrow keys to move the cursor\\nend and home work too!"
 	}
 	if(_str=="")
 	{
