@@ -5,6 +5,7 @@ var _x=32
 var _y=scrollOffset
 for(var i=0;i<array_length(lines);i++)
 {
+	_x=32
 	var _line=lines[i]
 	
 	var _formatStartOpen=string_pos("<",_line)
@@ -135,11 +136,33 @@ for(var i=0;i<array_length(lines);i++)
 	
 	_line=string_replace_all(_line,"<br>","\n")
 	draw_text_transformed(_x,_y,_line,_size,_size,0)
-	_y+=string_height(_line)*2
+	
 	if(lines[i]=="<p></p>")
 	{
 		_y-=string_height(_line)*2
 	}
+	else
+	{
+		var _height=string_height(_line)*1.9
+		if(_formatID==lineTypes.image)
+		{
+			_height=64
+		}
+		_x+=string_width(_line)*2
+	
+		draw_rectangle(_x,_y,_x+128,_y+_height,true)
+		if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
+		_x,_y,_x+128,_y+_height))
+		{
+			if(mouse_check_button_pressed(mb_left))
+			{
+				array_delete(lines,i,1)
+				break;
+			}
+		}
+		draw_text(_x,_y,"delete line")
+	}
+	_y+=string_height(_line)*2
 }
 
 _x=128
