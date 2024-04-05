@@ -29,7 +29,9 @@ arrowHoldTime=0
 backTime=0
 
 function format_string_line_breaks(str){
-	return string_replace_all(str,"\\n","<br>")
+	str=string_replace_all(str,"\n",new_line())
+	show_message(str)
+	return str
 }
 
 enum lineTypes{
@@ -113,7 +115,7 @@ function find_line_breaks(_str){
 	var _array=[]
 	for(var i=1;i<string_length(_str);i++)
 	{
-		if(string_char_at(_str,i)=="\n")
+		if(string_char_at(_str,i)=="\n"||string_char_at(_str,i)=="\\n")
 		{
 			array_push(_array,i)
 		}
@@ -125,16 +127,16 @@ function save_html(){
 	var _str=""
 	for(var i=0;i<array_length(startLines);i++)
 	{
-		_str=_str+startLines[i]+"\n"
+		_str=_str+startLines[i]//+"\n"
 	}
 	for(var i=0;i<array_length(lines);i++)
 	{
 		var _tempStr = format_string_line_breaks(lines[i])
-		_str=_str+_tempStr+"\n"
+		_str=_str+_tempStr//+"\n"
 	}
 	for(var i=0;i<array_length(endLines);i++)
 	{
-		_str=_str+endLines[i]+"\n"
+		_str=_str+endLines[i]//+"\n"
 	}
 	save_file(_str,game_save_id+"html.html")
 }

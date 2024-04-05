@@ -1,3 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-save_html()
+if(keyboard_check(vk_control))
+{
+	save_html()
+}

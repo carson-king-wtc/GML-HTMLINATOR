@@ -164,6 +164,15 @@ for(var i=0;i<array_length(lines);i++)
 	var _pressedNonTextKey=false
 	if(lineEditing==i)
 	{
+		var _lineBreaks=find_line_breaks(_line)
+		show_debug_message(_lineBreaks)
+		for(var o=0;o<array_length(_lineBreaks);o++)
+		{
+			if(lineIndex>=_lineBreaks[o])
+			{
+				_charactersAtStart++
+			}
+		}
 		if(lineTimer>15)
 		{
 			_editLine=string_insert("^",_line,lineIndex)
@@ -233,17 +242,14 @@ for(var i=0;i<array_length(lines);i++)
 			_pressedNonTextKey=true
 		}
 		arrowHoldTime++
-		if(keyboard_check_pressed(vk_anykey)&&!_pressedNonTextKey)
+		/*if(keyboard_check_pressed(vk_enter))
 		{
-			var _lineBreaks=find_line_breaks(lines[i])
-			show_debug_message(_lineBreaks)
-			for(var o=0;o<array_length(_lineBreaks);o++)
-			{
-				if(lineIndex>=_lineBreaks[o])
-				{
-					_charactersAtStart++
-				}
-			}
+			lines[i]=string_insert("\n",lines[i],lineIndex+_charactersAtStart)
+			lineIndex+=2
+			_pressedNonTextKey=true
+		}*/
+		if(keyboard_check_pressed(vk_anykey)&&!_pressedNonTextKey&&!keyboard_check(vk_control))
+		{
 			lines[i]=string_insert(keyboard_lastchar,lines[i],lineIndex+_charactersAtStart +1)
 			lineIndex++
 			keyboard_lastchar=""
