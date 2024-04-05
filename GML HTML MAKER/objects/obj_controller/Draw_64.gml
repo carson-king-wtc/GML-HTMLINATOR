@@ -5,6 +5,7 @@ var _x=32
 var _y=scrollOffset
 for(var i=0;i<array_length(lines);i++)
 {
+	draw_set_color(c_black)
 	_x=32
 	var _line=lines[i]
 	
@@ -31,6 +32,8 @@ for(var i=0;i<array_length(lines);i++)
 	draw_set_font(fn_default)
 	draw_set_color(c_black)
 	
+	var _isInHitbox=point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),_x,_y,_x+string_width(_line),_y+string_height(_line))
+	
 	var _size=1
 	
 	if(_formatID==lineTypes.headerBig)
@@ -54,7 +57,7 @@ for(var i=0;i<array_length(lines);i++)
 		var _linkPos=string_pos("href=",_format)
 		var _link=string_copy(_format,_linkPos+5,_formatStartClose)
 		_link=string_replace_all(_link,"\"","")
-		if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),_x,_y,_x+string_width(_line),_y+string_height(_line)))
+		if(_isInHitbox)
 		{
 			draw_set_color(c_aqua)
 			if(mouse_check_button_pressed(mb_left))
@@ -66,16 +69,18 @@ for(var i=0;i<array_length(lines);i++)
 	if(_formatID==lineTypes.button)
 	{
 		draw_rectangle(_x,_y,_x+string_width(_line),_y+string_height(_line),true)
-		if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),_x,_y,_x+string_width(_line),_y+string_height(_line)))
+		draw_set_color(c_white)
+		if(_isInHitbox)
 		{
 			draw_set_color(c_gray)
-			draw_rectangle(_x,_y,_x+string_width(_line),_y+string_height(_line),false)
-			draw_set_color(c_black)
-			if(mouse_check_button_pressed(mb_left))
+			
+			if(mouse_check_button(mb_left))
 			{
-				
+				draw_set_color(c_dkgray)
 			}
 		}
+		draw_rectangle(_x,_y,_x+string_width(_line),_y+string_height(_line),false)
+		draw_set_color(c_black)
 	}
 	if(string_count("<img",_line)>0)
 	{
@@ -148,7 +153,7 @@ for(var i=0;i<array_length(lines);i++)
 		{
 			_height=64
 		}
-		_x+=string_width(_line)*2
+		_x+=string_width(_line)*_size +64
 	
 		draw_rectangle(_x,_y,_x+128,_y+_height,true)
 		if(point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),
@@ -164,7 +169,7 @@ for(var i=0;i<array_length(lines);i++)
 	}
 	_y+=string_height(_line)*2
 }
-
+draw_set_color(c_black)
 _x=128
 _y=16
 

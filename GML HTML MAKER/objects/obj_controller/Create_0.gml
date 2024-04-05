@@ -15,19 +15,7 @@ endLines=[
 ]
 
 lines=[
-	"<h1>This is a <br>Heading<br>Heading<br>Heading<br>Heading</h1>",
-	
-	"<h2>This is a medium Heading</h2>",
-	
-	"<h3>This is a small Heading</h3>",
-	
-	"<a href=\"https://www.w3schools.com\">This is a link</a>",
-	
-	"<p></p>",
-	
-	"<button>Button</button>",
-	
-	"<p></p>",
+	"<p>This is a test line you're free to delete it :3</p>",
 ]
 
 function format_string_line_breaks(str){
@@ -96,6 +84,10 @@ function add_line(type){
 	else if(type==lineTypes.image)
 	{
 		var _image=get_open_filename("image files","")
+		if(_image=="")
+		{
+			return 0
+		}
 		file_copy(_image,game_save_id+filename_name(_image))
 		var _format=ds_map_find_value(lineFormatting,type)
 		_str=_format.startOfLine+" src=\""+filename_name(_image)+"\" width=\"999\" height=\"520\">"
