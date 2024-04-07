@@ -142,7 +142,6 @@ for(var i=0;i<array_length(lines);i++)
 	}
 	
 	_line=string_replace_all(_line,"<br>","\n")
-	_line=string_replace_all(_line,"\\n","\n")
 	
 	_isInHitbox=point_in_rectangle(
 	device_mouse_x_to_gui(0),

@@ -29,7 +29,7 @@ arrowHoldTime=0
 backTime=0
 
 function format_string_line_breaks(str){
-	str=string_replace_all(str,"\n",new_line())
+	str=string_replace_all(str,"\r",new_line())
 	show_message(str)
 	return str
 }
@@ -71,7 +71,7 @@ function add_line(type){
 	var _str="w"
 	if(type!=lineTypes.image)
 	{
-		_str="right click to type your text!\\nuse left and right arrow keys to move the cursor\\nend and home work too!"
+		_str="right click to type your text!<br>use left and right arrow keys to move the cursor<br>end and home work too!"
 	}
 	if(_str=="")
 	{
