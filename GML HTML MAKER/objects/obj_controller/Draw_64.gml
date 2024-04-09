@@ -141,7 +141,10 @@ for(var i=0;i<array_length(lines);i++)
 		_line=""
 	}
 	
-	_line=string_replace_all(_line,"<br>","\n")
+	if(string_count("<script",_line)<=0)
+	{
+		_line=string_replace_all(_line,"<br>","\n")
+	}
 	
 	_isInHitbox=point_in_rectangle(
 	device_mouse_x_to_gui(0),
