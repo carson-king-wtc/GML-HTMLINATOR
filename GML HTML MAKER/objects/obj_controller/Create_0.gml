@@ -42,7 +42,7 @@ enum lineTypes{
 	link,
 	button,
 	image,
-	list
+	audio
 }
 
 lineFormatting=ds_map_create()
