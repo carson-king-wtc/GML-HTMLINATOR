@@ -42,6 +42,7 @@ enum lineTypes{
 	link,
 	button,
 	image,
+	script,
 	audio
 }
 
@@ -60,6 +61,8 @@ ds_map_add(lineFormatting,lineTypes.link,{startOfLine:"<a",endOfLine:"</a>",name
 ds_map_add(lineFormatting,lineTypes.button,{startOfLine:"<button",endOfLine:"</button>",name:"Button"})
 
 ds_map_add(lineFormatting,lineTypes.image,{startOfLine:"<img",endOfLine:">",name:"Image"})
+
+ds_map_add(lineFormatting,lineTypes.script,{startOfLine:"<script",endOfLine:"</script>",name:"Script"})
 
 images=ds_map_create()
 
